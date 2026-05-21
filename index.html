@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+    <meta name="description" content="Tonight's sky, drawn from your location. Real stars, real time." />
+    <meta property="og:title" content="Yıldız — Tonight's Sky" />
+    <meta property="og:description" content="Tonight's sky, drawn from your location." />
+    <meta property="og:image" content="/og-image.png" />
+    <title>Yıldız</title>
+  </head>
+  <body>
+    <canvas id="sky"></canvas>
+
+    <div id="app">
+
+      <!-- ── Location setup overlay ───────────────────────────────────────── -->
+      <div id="overlay-location" class="overlay" role="dialog" aria-modal="true" aria-label="Choose your location">
+        <div class="overlay-card">
+          <h1 class="app-title">Yıldız</h1>
+          <p class="app-tagline">Tonight's sky from your location.</p>
+
+          <button id="btn-gps" class="btn-primary" aria-label="Use device GPS location">
+            Use my location
+          </button>
+
+          <p class="divider-text">or choose a city</p>
+
+          <div class="city-list" role="list"></div>
+
+          <details class="manual-toggle">
+            <summary>Enter coordinates</summary>
+            <div class="manual-coords">
+              <input id="input-lat" type="number" placeholder="Latitude"  min="-90"  max="90"  step="0.0001" aria-label="Latitude" />
+              <input id="input-lng" type="number" placeholder="Longitude" min="-180" max="180" step="0.0001" aria-label="Longitude" />
+              <button id="btn-manual" class="btn-secondary">Go</button>
+            </div>
+          </details>
+
+          <p class="location-error" hidden role="alert"></p>
+        </div>
+      </div>
+
+      <!-- ── Top-left: location + time ────────────────────────────────────── -->
+      <div id="panel-location" class="panel panel-topleft" hidden aria-live="polite">
+        <div class="loc-name"></div>
+        <div class="loc-coords"></div>
+        <div class="loc-time"></div>
+        <div class="loc-actions">
+          <button id="btn-change-location" class="btn-text" aria-label="Change location">Change</button>
+          <button id="btn-settings-toggle" class="btn-text" aria-label="Settings" aria-expanded="false">Settings</button>
+          <button id="btn-share" class="btn-text" aria-label="Export as PNG">Share</button>
+        </div>
+        <div id="settings-container" hidden></div>
+      </div>
+
+      <!-- ── Top-right: star / planet info ────────────────────────────────── -->
+      <div id="panel-info" class="panel panel-topright" hidden role="dialog" aria-modal="false" aria-label="Object information">
+        <div class="info-header">
+          <div>
+            <div class="info-name"></div>
+            <div class="info-type"></div>
+          </div>
+          <button class="btn-close-info" aria-label="Close">×</button>
+        </div>
+        <div class="info-rows"></div>
+      </div>
+
+      <!-- ── Bottom center: time scrubber ──────────────────────────────────── -->
+      <div id="panel-timeline" class="panel panel-bottom-center">
+        <div id="timeline-container"></div>
+      </div>
+
+    </div>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
